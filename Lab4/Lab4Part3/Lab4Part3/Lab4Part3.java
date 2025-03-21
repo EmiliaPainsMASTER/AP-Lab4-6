@@ -2,6 +2,7 @@ package Lab4Part3;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DateFormatSymbols;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -18,17 +19,17 @@ public class Lab4Part3 extends JFrame {
         Locale[] availableLocales = Locale.getAvailableLocales();
         String[] localities = getStrings(availableLocales);
         JComboBox<String> locales = new JComboBox<>(localities);
-        JTextArea localizedText = new JTextArea();
+        JTextArea localizedText = new JTextArea(7,30);
         localizedText.setEditable(false);
         locales.addActionListener(e -> {
-        String selectedLocale = locales.getSelectedItem().toString();
             for(Locale locale : availableLocales){
-                if(locale.getDisplayName().equals(selectedLocale)){
+                if(locale.getDisplayName().equals(locales.getSelectedItem().toString())){
                     localized(locale, localizedText);
                 }}
     });
-        panel.add(locales);
-        panel.add(localizedText);
+        panel.setLayout(new BorderLayout());
+        panel.add(locales,BorderLayout.NORTH);
+        panel.add(localizedText, BorderLayout.SOUTH);
         return panel;
     }
 
@@ -50,6 +51,13 @@ public class Lab4Part3 extends JFrame {
     }
     public void localized(Locale locale,JTextArea localizedText){
         setTitle(locale.getDisplayName());
+        DateFormatSymbols localizedCalender = new DateFormatSymbols(locale);
+        String[] localWeekdays = localizedCalender.getWeekdays();
+        StringBuilder formattedLocalWeekDays = new StringBuilder();
+        for(int increment = 1; increment < localWeekdays.length; increment++){
+            formattedLocalWeekDays.append(localWeekdays[increment]).append("\n");
+        }
+        localizedText.setText(formattedLocalWeekDays.toString());
 
     }
 

@@ -13,11 +13,13 @@ public class EverydayObjectSoundGUI extends JFrame {
     public EverydayObjectSoundGUI() {
         Container c = getContentPane();
         c.setLayout(new GridLayout(1,3));
-        JLabel title = new JLabel("Everyday Object Sound");
-        JPanel buttonPanel = makeButtonPanel(new JPanel(), new JButton(), new JButton(), new JButton(), title);
 
+        JLabel title = new JLabel("Everyday Object Sound");
+        JLabel imageLabel = new JLabel();
+        JPanel buttonPanel = makeButtonPanel(new JPanel(), new JButton(), new JButton(), new JButton(), title, imageLabel);
 
         c.add(buttonPanel);
+        c.add(imageLabel);
         c.add(title);
         settings();
     }
@@ -29,20 +31,21 @@ public class EverydayObjectSoundGUI extends JFrame {
 
     }
 
-    private JPanel makeButtonPanel(JPanel panel, JButton soundOneButton, JButton soundTwoButton, JButton soundThreeButton, JLabel title) {
+    private JPanel makeButtonPanel(JPanel panel, JButton soundOneButton, JButton soundTwoButton, JButton soundThreeButton, JLabel title, JLabel imageLabel) {
         panel.setLayout(new GridLayout(3, 1));
         soundOneButton.setText("Sound One");
         soundTwoButton.setText("Sound Two");
         soundThreeButton.setText("Sound Three");
         soundOneButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                File soundOne = new File("Lab4Part1/Lab4Part1/1-welcome.wav");
+                File soundOne = new File("Lab4Part1/Lab4Part1/MONKEY_1.wav");
                 try {
                     playAudio(soundOne);
                 } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
                     e.printStackTrace();
                 }
-                title.setText("Sound One 'Welcome' Pressed");
+                title.setText("Hail DONDUS!");
+                imageLabel.setIcon(new ImageIcon("Lab4Part1/Lab4Part1/dondus.png"));
             }
         });
         soundTwoButton.addActionListener(new ActionListener() {
@@ -54,6 +57,7 @@ public class EverydayObjectSoundGUI extends JFrame {
                     e.printStackTrace();
                 }
                 title.setText("Sound Two 'Bottle Open' Pressed");
+                imageLabel.setIcon(new ImageIcon("Lab4Part1/Lab4Part1/bottleOpen.png"));
             }
         });
         soundThreeButton.addActionListener(new ActionListener() {
@@ -65,6 +69,7 @@ public class EverydayObjectSoundGUI extends JFrame {
                     e.printStackTrace();
                 }
                 title.setText("Sound Three 'MARCH' pressed");
+                imageLabel.setIcon(new ImageIcon("Lab4Part1/Lab4Part1/march.png"));
             }
         });
         panel.add(soundOneButton);
